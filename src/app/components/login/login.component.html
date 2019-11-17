@@ -1,0 +1,18 @@
+<div class="authBlock">
+	<h3>Login</h3>
+	<form>
+		<div class="form-row">
+			<input type="text" placeholder="Username" #userName required>
+		</div>
+
+		<div class="form-row">
+			<input type="password" placeholder="Password" #userPassword required>
+		</div>
+
+		<div class="form-row">
+			<input type="button" class="btn" value="Login" (click)="authService.login(userName.value, userPassword.value)">
+		</div>
+	</form>
+</div>
+
+<button (click)="authService.logout()">Logout</button>

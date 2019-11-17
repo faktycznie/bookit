@@ -1,0 +1,18 @@
+<div class="authBlock">
+	<h3>Registration</h3>
+
+	<form>
+		<div class="form-row">
+			<input type="email" class="formControl" placeholder="Email Address" #userEmail required>
+		</div>
+
+		<div class="form-row">
+			<input type="password" class="formControl" placeholder="Password" #userPwd required>
+		</div>
+
+		<div class="form-row">
+			<input type="button" class="btn" value="Sign Up" (click)="authService.register(userEmail.value, userPwd.value)">
+		</div>
+	</form>
+
+</div>

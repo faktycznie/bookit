@@ -1,0 +1,12 @@
+<p *ngIf="authService.isLoggedIn; else elseBlock">
+	Zalogowany {{ authService.isLoggedIn }}
+</p>
+<ng-template #elseBlock>Niezalogowany</ng-template>
+
+<ul>
+	<li class="text" *ngFor="let item of items | async">
+		{{item.name}}
+	</li>
+</ul>
+
+
