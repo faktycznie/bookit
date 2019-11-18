@@ -1,9 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../models/user';
 import { auth } from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +18,13 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-     /* Saving user data in localstorage when logged in and setting up null when logged out */
       this.afAuth.authState.subscribe(user => {
         if (user) {
           console.log(user);
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
-          JSON.parse(localStorage.getItem('user'));
         } else {
           localStorage.setItem('user', null);
-          JSON.parse(localStorage.getItem('user'));
         }
       });
     }
@@ -36,7 +33,8 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         console.log('logged-in');
-        this.SetUserData(result.user);
+        this.setUserData(result.user); // save user data
+        this.router.navigate(['/']); // redirect to home
       }).catch((error) => {
         console.log(error.message);
       });
@@ -46,10 +44,11 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         console.log('registered');
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
+        this.router.navigate(['/']); // redirect to home
       }).catch((error) => {
         console.log(error.message);
-      })
+      });
   }
 
   get isLoggedIn() {
@@ -57,7 +56,7 @@ export class AuthService {
     return (user !== null /*&& user.emailVerified !== false*/) ? user.email : false;
   }
 
-  SetUserData(user) {
+  setUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,

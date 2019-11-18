@@ -3,11 +3,10 @@
     {{ title }}!
   </h1>
 
-
-<app-register></app-register>
-
-<app-login></app-login>
-
-<app-items></app-items>
+  <nav>
+    <a routerLink="/" routerLinkActive="active">Items</a>
+    <a *ngIf="!authService.isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+    <a *ngIf="!authService.isLoggedIn" routerLink="/register" routerLinkActive="active">Register</a>
+  </nav>
 
 <router-outlet></router-outlet>

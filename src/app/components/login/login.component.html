@@ -1,18 +1,16 @@
 <div class="authBlock">
 	<h3>Login</h3>
-	<form>
+	<form (ngSubmit)="onLogin()">
 		<div class="form-row">
-			<input type="text" placeholder="Username" #userName required>
+			<input type="text" placeholder="Username" name="userName" [(ngModel)]="userName" required>
 		</div>
 
 		<div class="form-row">
-			<input type="password" placeholder="Password" #userPassword required>
+			<input type="password" placeholder="Password" name="userPassword" [(ngModel)]="userPassword" required>
 		</div>
 
 		<div class="form-row">
-			<input type="button" class="btn" value="Login" (click)="authService.login(userName.value, userPassword.value)">
+			<button type="submit" class="btn">Login</button>
 		</div>
 	</form>
 </div>
-
-<button (click)="authService.logout()">Logout</button>

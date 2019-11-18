@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -18,19 +19,24 @@ export class ItemsComponent implements OnInit {
   items: Observable<any[]>;
 
   constructor(
-    db: AngularFirestore,
-    public authService: AuthService
+    private router: Router,
+    private db: AngularFirestore,
+    private authService: AuthService
     ) {
     this.itemsCollection = db.collection<Item>('items');
     this.items = this.itemsCollection.valueChanges();
   }
 
   ngOnInit() {
-    //this.addItem({name: 'Test' });
   }
 
   addItem(item: Item) {
     this.itemsCollection.add(item);
   }
+
+  toLogin() {
+    this.router.navigate(['./login']);
+  }
+
 
 }
